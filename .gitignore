@@ -1,0 +1,8 @@
+# 로그 파일은 트래킹 (구조 유지)
+!logs/.gitkeep
+
+# OS
+.DS_Store
+
+# 로컬 설정 (토큰 등 민감정보)
+.claude/settings.local.json

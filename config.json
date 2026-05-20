@@ -1,0 +1,10 @@
+{
+  "default_agents": ["frontend", "qa"],
+  "available_agents": {
+    "frontend": "agents/frontend-expert.md",
+    "backend": "agents/backend-expert.md",
+    "qa": "agents/qa-expert.md",
+    "security": "agents/security-expert.md",
+    "performance": "agents/performance-expert.md"
+  }
+}
