@@ -1,6 +1,0 @@
----
-description: MCP 연동 점검 및 설정 가이드
-alwaysApply: false
----
-
-`shared/setup.md` 의 가이드에 따라 MCP 연동 상태를 점검합니다.

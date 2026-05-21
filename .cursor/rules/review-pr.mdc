@@ -1,6 +1,0 @@
----
-description: PR 리뷰 요청 시 실행
-alwaysApply: false
----
-
-`shared/review-pr.md` 의 로직을 따라 PR 리뷰를 실행합니다.
