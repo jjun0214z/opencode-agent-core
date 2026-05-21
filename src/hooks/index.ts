@@ -1,5 +1,5 @@
 import type { Hooks, PluginInput } from "@opencode-ai/plugin"
-import { existsSync, readFileSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
 import { buildCompactionContext } from "../context/compaction"
 import { createReadmeInjector } from "../context/readme-injector"
@@ -37,8 +37,13 @@ export function createHooks(ctx: PluginInput): Partial<Hooks> {
       const sections = [buildOrchestratorPrompt(modelStr), buildExpertSection(family)]
 
       const contextPath = join(ctx.directory, ".agent-core", "context.md")
-      if (existsSync(contextPath)) {
-        sections.push(readFileSync(contextPath, "utf-8"))
+      if (existsSync(contextPath)) sections.push(readFileSync(contextPath, "utf-8"))
+
+      const externalDir = join(ctx.directory, ".agent-core", "external")
+      if (existsSync(externalDir)) {
+        for (const f of readdirSync(externalDir).filter(f => f.endsWith(".md"))) {
+          sections.push(readFileSync(join(externalDir, f), "utf-8"))
+        }
       }
 
       output.system.push(...sections)
