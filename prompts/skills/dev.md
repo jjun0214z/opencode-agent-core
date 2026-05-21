@@ -34,9 +34,9 @@
 - 추상화는 3번 이상 반복될 때만
 - 에러 처리는 시스템 경계(입력, 외부 API)에만
 
-도메인별 위임이 필요한 경우 해당 expert 프롬프트 참조:
-- UI/컴포넌트 → `agents/frontend-expert.md`
-- API/DB/로직 → `agents/backend-expert.md`
+도메인별 위임이 필요한 경우 시스템 컨텍스트의 **"Expert Agent Prompts"** 섹션 참조:
+- UI/컴포넌트 → `frontend` expert
+- API/DB/로직 → `backend` expert
 
 ---
 

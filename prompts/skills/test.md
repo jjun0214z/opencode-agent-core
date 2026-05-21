@@ -28,7 +28,7 @@ CONTEXT:
   대상: [path]
   기존 테스트: [있으면 경로]
   프레임워크: [vitest/jest 등]
-  Expert 프롬프트: [agents/qa-expert.md 내용]
+  Expert 프롬프트: 시스템 컨텍스트의 "Expert Agent Prompts" → `qa` 섹션 참조
 ```
 
 ---

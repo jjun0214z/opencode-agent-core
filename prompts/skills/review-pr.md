@@ -48,13 +48,15 @@ CONTEXT:
 ```
 
 ### Expert 매핑
-| Key | 프롬프트 파일 |
-|-----|-------------|
-| `backend` | `agents/backend-expert.md` |
-| `frontend` | `agents/frontend-expert.md` |
-| `qa` | `agents/qa-expert.md` |
-| `security` | `agents/security-expert.md` |
-| `performance` | `agents/performance-expert.md` |
+각 expert 프롬프트는 시스템 컨텍스트의 **"Expert Agent Prompts"** 섹션에 자동 주입된다.
+
+| Key | 역할 |
+|-----|------|
+| `backend` | API, DB, 비즈니스 로직 검토 |
+| `frontend` | UI, 컴포넌트, 상태관리 검토 |
+| `qa` | 테스트, 엣지케이스, 회귀 위험 검토 |
+| `security` | OWASP Top 10 기준 취약점 검토 |
+| `performance` | N+1, 쿼리, 번들, 메모리 검토 |
 
 ---
 
