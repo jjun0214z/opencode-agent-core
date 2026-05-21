@@ -12,8 +12,8 @@
     }
   },
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target bun --format esm && tsc --emitDeclarationOnly",
-    "dev": "bun run --watch src/index.ts",
+    "build": "tsup && tsc --emitDeclarationOnly",
+    "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
@@ -23,8 +23,13 @@
   },
   "devDependencies": {
     "bun-types": "1.3.14",
+    "tsup": "^8.5.1",
     "typescript": "^6.0.3"
   },
-  "keywords": ["opencode", "plugin", "agent"],
+  "keywords": [
+    "opencode",
+    "plugin",
+    "agent"
+  ],
   "packageManager": "pnpm@10.8.0"
 }
