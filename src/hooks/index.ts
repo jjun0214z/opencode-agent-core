@@ -10,6 +10,7 @@ import {
   buildQaExpertPrompt,
   buildSecurityExpertPrompt,
 } from "../prompts/agents/index"
+import { buildOrchestratorPrompt } from "../prompts/orchestrator"
 import { detectModelFamily } from "../prompts/types"
 
 function buildExpertSection(family: ReturnType<typeof detectModelFamily>): string {
@@ -30,13 +31,17 @@ export function createHooks(ctx: PluginInput): Partial<Hooks> {
 
   return {
     "experimental.chat.system.transform": async (input, output) => {
-      const family = detectModelFamily(`${input.model.providerID}/${input.model.id}`)
-      output.system.push(buildExpertSection(family))
+      const modelStr = `${input.model.providerID}/${input.model.id}`
+      const family = detectModelFamily(modelStr)
+
+      const sections = [buildOrchestratorPrompt(modelStr), buildExpertSection(family)]
 
       const contextPath = join(ctx.directory, ".agent-core", "context.md")
       if (existsSync(contextPath)) {
-        output.system.push(readFileSync(contextPath, "utf-8"))
+        sections.push(readFileSync(contextPath, "utf-8"))
       }
+
+      output.system.push(...sections)
     },
 
     "tool.execute.after": async (input, output) => {
