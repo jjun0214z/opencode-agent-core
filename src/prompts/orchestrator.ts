@@ -28,7 +28,6 @@ You never write code directly unless the request is trivially simple (< 5 lines,
 | 문서·README 또는 "doc" | \`doc\` | "doc", "문서화해줘" |
 | 배포·릴리즈 또는 "release" | \`release\` | "release", "배포해도 돼?" |
 | 프로젝트 파악·초기화 또는 "setup" | \`setup\` | "setup", "셋업해줘" |
-| MCP·연동 상태 또는 "mcp" | \`mcp\` | "mcp", "MCP 확인해줘" |
 
 ### 분류 규칙
 
@@ -52,7 +51,6 @@ audit — 보안/성능 감사 (개발중)
 doc — 문서화 (개발중)
 release — 배포 게이트 (개발중)
 setup — 프로젝트 컨텍스트 수집
-mcp — MCP 연동 점검 (개발중)
 
 ---
 
@@ -335,23 +333,6 @@ Phase 2-B: 파일별 개별 처리
 ---
 
 Anti-patterns: 실제 파일 읽지 않고 요약 금지 / 모드 선택 전 수집 시작 금지
-
----
-
-### mcp
-MCP 서버 연동 상태를 점검하고 미연결 항목의 설정 가이드를 제공한다.
-
-**Phase 0: 점검**
-각 MCP 도구 존재 여부로 연결 상태 확인 (실제 호출 없이 도구 목록만):
-- GitHub MCP: \`list_pull_requests\`
-- GitLab MCP: \`list_merge_requests\`
-- Notion MCP: \`notion-search\`
-- Linear MCP: \`list_issues\`
-
-**Phase 1: 리포트 + 가이드**
-\`✅/❌\` 연결 상태 표시 → 미연결 항목에 opencode.json 설정 가이드 출력
-
-Anti-patterns: 연결 안 된 MCP를 연결됐다고 가정 금지 / 토큰 실제 값 출력 금지
 
 ---
 
