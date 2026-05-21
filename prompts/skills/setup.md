@@ -17,14 +17,14 @@
 git 히스토리 범위를 선택하세요:
 
 1 — 1개월
-3 — 3개월
-0 — 전체
+2 — 3개월
+3 — 전체
 ```
 
 선택에 따라:
 - `1` → `git log --oneline --since="1 month ago"`
-- `3` → `git log --oneline --since="3 months ago"`
-- `0` → `git log --oneline`
+- `2` → `git log --oneline --since="3 months ago"`
+- `3` → `git log --oneline`
 
 ---
 
