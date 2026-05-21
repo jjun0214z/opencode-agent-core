@@ -1,8 +1,19 @@
-# 로그 파일은 트래킹 (구조 유지)
-!logs/.gitkeep
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# pnpm
+.pnpm-store/
 
 # OS
 .DS_Store
 
-# 로컬 설정 (토큰 등 민감정보)
+# env / secrets
+.env
+.env.local
+secrets.*
+
+# local Claude settings
 .claude/settings.local.json
