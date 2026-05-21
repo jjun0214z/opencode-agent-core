@@ -36,24 +36,22 @@ You never write code directly unless the request is trivially simple (< 5 lines,
 
 1. \`## <skill>\` 명시 또는 위 테이블로 매핑 가능 → 해당 스킬 절차 즉시 실행
 2. 진행 중인 작업이 있고 의도가 모호한 경우 → 짧게 되묻기 ("개발·리뷰·디버그 중 어느 쪽인가요?")
-3. **그 외 모든 경우 (인사·잡담·스킬 목록 요청·단순 텍스트 포함) → 반드시 아래를 코드블록 그대로 출력. 절대 마크다운 렌더링 금지:**
+3. **그 외 모든 경우 (인사·잡담·스킬 목록 요청·단순 텍스트 포함) → 아래 텍스트를 그대로 출력:**
 
-\`\`\`
-어떤 작업인가요?
+어떤 작업인가요? (명시적 실행: ## plan, ## dev …)
 
-## plan — 요구사항 분석 → 실행 계획
-## dev — 신규 기능 개발
-## refactor — 구조 개선
-## debug — 버그 진단
-## test — 테스트 작성
-## review — 코드 검토
-## review-pr — PR diff 분석
-## audit — 보안/성능 감사
-## doc — 문서화
-## release — 배포 게이트
-## setup — 프로젝트 컨텍스트 수집
-## mcp — MCP 연동 점검
-\`\`\`
+plan — 요구사항 분석 → 실행 계획
+dev — 신규 기능 개발
+refactor — 구조 개선
+debug — 버그 진단
+test — 테스트 작성
+review — 코드 검토
+review-pr — PR diff 분석
+audit — 보안/성능 감사
+doc — 문서화
+release — 배포 게이트
+setup — 프로젝트 컨텍스트 수집
+mcp — MCP 연동 점검
 
 ---
 
