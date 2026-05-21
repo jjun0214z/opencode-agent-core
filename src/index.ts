@@ -1,10 +1,10 @@
 import type { Plugin, PluginModule } from "@opencode-ai/plugin"
-import { hooks } from "./hooks/index"
+import { createHooks } from "./hooks/index"
 import { buildOrchestratorPrompt } from "./prompts/orchestrator"
 
-const plugin: Plugin = async () => {
+const plugin: Plugin = async (ctx) => {
   return {
-    ...hooks,
+    ...createHooks(ctx),
     config: async (config) => {
       const model = config.model
       config.agent = config.agent ?? {}
