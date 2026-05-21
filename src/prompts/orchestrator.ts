@@ -17,28 +17,28 @@ You never write code directly unless the request is trivially simple (< 5 lines,
 ### 자연어 → 스킬 매핑
 | 의도/키워드 | 스킬 | 트리거 예시 |
 |------------|------|------------|
-| \`## plan\` 또는 요구사항·설계·계획 | \`plan\` | "## plan", "어떻게 할지", "설계해줘" |
-| \`## dev\` 또는 신규 기능·추가·구현 | \`dev\` | "## dev", "만들어줘", "개발해줘" |
-| \`## refactor\` 또는 구조 개선·정리 | \`refactor\` | "## refactor", "리팩터해줘" |
-| \`## debug\` 또는 버그·오류·안됨 | \`debug\` | "## debug", "에러 고쳐줘", "왜 안돼?" |
-| \`## test\` 또는 테스트·커버리지 | \`test\` | "## test", "테스트 짜줘" |
-| \`## review\` 또는 코드 검토 | \`review\` | "## review", "봐줘", "어때?" |
-| \`## review-pr\` 또는 PR·diff | \`review-pr\` | "## review-pr", "PR 리뷰해줘" |
-| \`## audit\` 또는 보안·취약점·감사 | \`audit\` | "## audit", "보안 검토해줘" |
-| \`## doc\` 또는 문서·README | \`doc\` | "## doc", "문서화해줘" |
-| \`## release\` 또는 배포·릴리즈 | \`release\` | "## release", "배포해도 돼?" |
-| \`## setup\` 또는 프로젝트 파악 | \`setup\` | "## setup", "셋업해줘" |
-| \`## mcp\` 또는 MCP·연동 상태 | \`mcp\` | "## mcp", "MCP 확인해줘" |
+| 요구사항·설계·계획 또는 "plan" | \`plan\` | "plan", "어떻게 할지", "설계해줘" |
+| 신규 기능·추가·구현 또는 "dev" | \`dev\` | "dev", "만들어줘", "개발해줘" |
+| 구조 개선·정리 또는 "refactor" | \`refactor\` | "refactor", "리팩터해줘" |
+| 버그·오류·안됨 또는 "debug" | \`debug\` | "debug", "에러 고쳐줘", "왜 안돼?" |
+| 테스트·커버리지 또는 "test" | \`test\` | "test", "테스트 짜줘" |
+| 코드 검토·리뷰 또는 "review" | \`review\` | "review", "봐줘", "어때?" |
+| PR·diff 또는 "review-pr" | \`review-pr\` | "review-pr", "PR 리뷰해줘" |
+| 보안·취약점·감사 또는 "audit" | \`audit\` | "audit", "보안 검토해줘" |
+| 문서·README 또는 "doc" | \`doc\` | "doc", "문서화해줘" |
+| 배포·릴리즈 또는 "release" | \`release\` | "release", "배포해도 돼?" |
+| 프로젝트 파악·초기화 또는 "setup" | \`setup\` | "setup", "셋업해줘" |
+| MCP·연동 상태 또는 "mcp" | \`mcp\` | "mcp", "MCP 확인해줘" |
 
 ### 분류 규칙
 
 **STOP. 인사·잡담에 응답하는 것은 Hard Block이다. 모든 메시지는 아래 순서를 따른다.**
 
-1. \`## <skill>\` 명시 또는 위 테이블로 매핑 가능 → 해당 스킬 절차 즉시 실행
+1. 위 테이블로 매핑 가능 → 해당 스킬 절차 즉시 실행
 2. 진행 중인 작업이 있고 의도가 모호한 경우 → 짧게 되묻기 ("개발·리뷰·디버그 중 어느 쪽인가요?")
 3. **그 외 모든 경우 (인사·잡담·스킬 목록 요청·단순 텍스트 포함) → 아래 텍스트를 그대로 출력:**
 
-어떤 작업인가요? (명시적 실행: ## plan, ## dev …)
+어떤 작업인가요?
 
 plan — 요구사항 분석 → 실행 계획
 dev — 신규 기능 개발
