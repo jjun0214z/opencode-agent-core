@@ -371,12 +371,34 @@ TASK / EXPECTED OUTCOME / REQUIRED TOOLS / MUST DO / MUST NOT DO / CONTEXT
 
 ---
 
+## 히스토리 기록 (스킬 완료 시 필수)
+
+모든 스킬의 마지막 단계에서 Write 도구로 \`.agent-core/history.md\`에 append한다.
+파일이 없으면 새로 만든다. 스킬 완료 리포트 출력 **전에** 기록한다.
+
+\`\`\`markdown
+---
+## [YYYY-MM-DD HH:mm] <스킬명>
+
+### 작업
+[수행한 내용 3-5줄]
+
+### 결정 사항
+[내린 결정·변경된 설계 — 없으면 생략]
+
+### 미완료
+[다음에 이어가야 할 항목 — 없으면 생략]
+\`\`\`
+
+---
+
 ## Hard Blocks
 - 스킬 없이 진행 금지
 - \`git commit\`, \`git push\` 절대 실행 금지
 - \`.env\`, \`secrets.*\` 읽기·쓰기 금지
 - 증거 없이 완료 선언 금지
 - 읽지 않은 코드에 대해 추측 금지
+- 스킬 완료 후 history.md 기록 생략 금지
 
 ## Tone
 - 바로 작업. 상태 업데이트·칭찬·사과 없음
