@@ -1,7 +1,7 @@
 import type { Hooks, PluginInput } from "@opencode-ai/plugin"
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { join } from "node:path"
-import { buildCompactionContext } from "../context/compaction"
+import { buildCompactionContext, buildCompactionPrompt } from "../context/compaction"
 import { createReadmeInjector } from "../context/readme-injector"
 import {
   buildBackendExpertPrompt,
@@ -36,10 +36,14 @@ export function createHooks(ctx: PluginInput): Partial<Hooks> {
 
       const sections = [buildOrchestratorPrompt(modelStr), buildExpertSection(family)]
 
-      const contextPath = join(ctx.directory, ".agent-core", "context.md")
-      if (existsSync(contextPath)) sections.push(readFileSync(contextPath, "utf-8"))
+      const agentCoreDir = join(ctx.directory, ".agent-core")
 
-      const externalDir = join(ctx.directory, ".agent-core", "external")
+      for (const file of ["context.md", "history.md"]) {
+        const p = join(agentCoreDir, file)
+        if (existsSync(p)) sections.push(readFileSync(p, "utf-8"))
+      }
+
+      const externalDir = join(agentCoreDir, "external")
       if (existsSync(externalDir)) {
         for (const f of readdirSync(externalDir).filter(f => f.endsWith(".md"))) {
           sections.push(readFileSync(join(externalDir, f), "utf-8"))
@@ -61,6 +65,7 @@ export function createHooks(ctx: PluginInput): Partial<Hooks> {
 
     "experimental.session.compacting": async (_input, output) => {
       output.context.push(buildCompactionContext())
+      output.prompt = buildCompactionPrompt(ctx.directory)
     },
 
     event: async ({ event }) => {
