@@ -1,7 +1,7 @@
 {
-  "name": "agent-core",
+  "name": "agent-core-plugin",
   "version": "0.1.0",
-  "description": "Custom OpenCode plugin harness",
+  "description": "OpenCode plugin — NL-routed skills with 8 expert sub-agents and SQLite context storage",
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -11,6 +11,9 @@
       "import": "./dist/index.js"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup && tsc --emitDeclarationOnly",
     "dev": "tsup --watch",
@@ -32,7 +35,20 @@
   "keywords": [
     "opencode",
     "plugin",
-    "agent"
+    "agent",
+    "ai",
+    "code-review",
+    "expert-agents"
   ],
+  "author": "jjun0214z",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjun0214z/pr-review-agent.git"
+  },
+  "homepage": "https://github.com/jjun0214z/pr-review-agent#readme",
+  "engines": {
+    "node": ">=18"
+  },
   "packageManager": "pnpm@10.8.0"
 }
