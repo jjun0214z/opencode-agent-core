@@ -16,9 +16,9 @@
     "dev": "tsup --watch",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "release:patch": "npm version patch && npm run build",
-    "release:minor": "npm version minor && npm run build",
-    "release:major": "npm version major && npm run build"
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major"
   },
   "dependencies": {
     "@opencode-ai/plugin": "^1.15.4",
