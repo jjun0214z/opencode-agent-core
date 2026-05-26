@@ -1,16 +1,14 @@
-export function buildCompactionPrompt(directory: string): string {
-  const historyPath = `${directory}/.agent-core/history.md`
+export function buildCompactionPrompt(): string {
   return `대화를 압축하기 전에 먼저 이번 세션 히스토리를 기록하세요.
 
 ## 1단계: 히스토리 기록
 
-Write 도구로 \`${historyPath}\` 파일에 아래 형식을 **append** 하세요.
-파일이 이미 있으면 기존 내용 뒤에 추가하고, 없으면 새로 만드세요.
+\`agent_context_write\` 도구를 호출하세요:
+- type: "history"
+- skill: "session"
+- content: 아래 형식으로 작성
 
 \`\`\`markdown
----
-## [오늘 날짜 YYYY-MM-DD] 세션
-
 ### 실행 스킬
 [이번 세션에서 실행된 스킬 목록]
 

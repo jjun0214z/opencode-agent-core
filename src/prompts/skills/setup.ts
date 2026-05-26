@@ -1,5 +1,5 @@
 export const SETUP_SKILL = `### setup
-컨텍스트를 수집해 \`.agent-core/\` 에 저장한다. 매 턴 자동 주입됨.
+컨텍스트를 수집해 DB에 저장한다. 매 턴 자동 주입됨.
 
 **Phase 0: 모드 선택**
 먼저 유저에게 묻는다:
@@ -29,10 +29,12 @@ bash: ls -la
 read: README.md / package.json / pyproject.toml / go.mod / Cargo.toml (있으면)
 \`\`\`
 
-Phase 1-C: \`.agent-core/context.md\` 작성
-개요 / 스택 / 구조 / 브랜치 / 주요 기여자 / 커밋 히스토리
+Phase 1-C: 컨텍스트 저장
+\`agent_context_write\` 도구 호출:
+- type: \`"context"\`
+- content: 개요 / 스택 / 구조 / 브랜치 / 주요 기여자 / 커밋 히스토리
 
-리포트: \`✅ .agent-core/context.md 생성 완료\`
+리포트: \`✅ 프로젝트 컨텍스트 저장 완료\`
 
 ---
 
@@ -42,21 +44,19 @@ Phase 2-A: 파일 경로 수집
 유저에게 묻는다: "참조할 파일 경로를 입력하세요 (여러 개면 줄바꿈으로 구분)"
 
 Phase 2-B: 파일별 개별 처리
-입력된 경로를 순서대로 read → 파일명 slug화 → \`.agent-core/external/<slug>.md\` 로 각각 저장.
-읽기 실패 시 해당 파일만 스킵. 여러 파일을 하나로 합치기 금지.
+입력된 경로를 순서대로 read → 파일명 slug화 → 파일마다 \`agent_context_write\` 도구 호출.
+읽기 실패 시 해당 파일만 스킵. 여러 파일을 한 번에 합치기 금지.
 
-각 파일 저장 형식:
-\`\`\`markdown
-# [원본 파일 경로]
-> 생성: [날짜]
-
-[핵심 내용 요약 — 구조·결정 사항·제약 위주로 압축]
-\`\`\`
+각 파일마다:
+- type: \`"external"\`
+- slug: 파일명 기반 slug (예: \`design-spec\`)
+- source_path: 원본 파일 경로
+- content: 핵심 내용 요약 (구조·결정 사항·제약 위주로 압축)
 
 리포트:
 \`\`\`
 ✅ 외부 컨텍스트 저장 완료
-- .agent-core/external/[slug].md  ← [원본 경로]
+- [slug]  ← [원본 경로]
 이후 매 턴 자동 주입됩니다.
 \`\`\`
 

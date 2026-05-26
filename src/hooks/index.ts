@@ -1,6 +1,4 @@
 import type { Hooks, PluginInput } from "@opencode-ai/plugin"
-import { existsSync, readdirSync, readFileSync } from "node:fs"
-import { join } from "node:path"
 import { buildCompactionContext, buildCompactionPrompt } from "../context/compaction"
 import { createReadmeInjector } from "../context/readme-injector"
 import {
@@ -15,6 +13,8 @@ import {
 } from "../prompts/agents/index"
 import { buildOrchestratorPrompt } from "../prompts/orchestrator"
 import { detectModelFamily } from "../prompts/types"
+import { getCurrentMonthHistory, getContext, getExternalFiles } from "../storage/db"
+import { createAgentContextWriteTool } from "../storage/tool"
 
 function buildExpertSection(family: ReturnType<typeof detectModelFamily>): string {
   return [
@@ -32,29 +32,48 @@ function buildExpertSection(family: ReturnType<typeof detectModelFamily>): strin
   ].join("\n\n")
 }
 
+function buildContextSections(projectDir: string): string[] {
+  const sections: string[] = []
+
+  const context = getContext(projectDir)
+  if (context) sections.push(context)
+
+  const externals = getExternalFiles(projectDir)
+  for (const f of externals) {
+    sections.push(`## External: ${f.slug}\n> 출처: ${f.source_path}\n\n${f.content}`)
+  }
+
+  const history = getCurrentMonthHistory(projectDir)
+  if (history.length > 0) {
+    const entries = history
+      .map(h => {
+        const date = new Date(h.created_at).toISOString().replace("T", " ").slice(0, 16)
+        return `---\n## [${date}] ${h.skill}\n\n${h.content}`
+      })
+      .join("\n\n")
+    sections.push(`# 이번 달 히스토리\n\n${entries}`)
+  }
+
+  return sections
+}
+
 export function createHooks(ctx: PluginInput): Partial<Hooks> {
   const readmeInjector = createReadmeInjector(ctx.directory)
 
   return {
+    tool: {
+      agent_context_write: createAgentContextWriteTool(ctx.directory),
+    },
+
     "experimental.chat.system.transform": async (input, output) => {
       const modelStr = `${input.model.providerID}/${input.model.id}`
       const family = detectModelFamily(modelStr)
 
-      const sections = [buildOrchestratorPrompt(modelStr), buildExpertSection(family)]
-
-      const agentCoreDir = join(ctx.directory, ".agent-core")
-
-      for (const file of ["context.md", "history.md"]) {
-        const p = join(agentCoreDir, file)
-        if (existsSync(p)) sections.push(readFileSync(p, "utf-8"))
-      }
-
-      const externalDir = join(agentCoreDir, "external")
-      if (existsSync(externalDir)) {
-        for (const f of readdirSync(externalDir).filter(f => f.endsWith(".md"))) {
-          sections.push(readFileSync(join(externalDir, f), "utf-8"))
-        }
-      }
+      const sections = [
+        buildOrchestratorPrompt(modelStr),
+        buildExpertSection(family),
+        ...buildContextSections(ctx.directory),
+      ]
 
       output.system.push(...sections)
     },
@@ -71,7 +90,7 @@ export function createHooks(ctx: PluginInput): Partial<Hooks> {
 
     "experimental.session.compacting": async (_input, output) => {
       output.context.push(buildCompactionContext())
-      output.prompt = buildCompactionPrompt(ctx.directory)
+      output.prompt = buildCompactionPrompt()
     },
 
     event: async ({ event }) => {

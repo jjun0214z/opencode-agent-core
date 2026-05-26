@@ -7,4 +7,5 @@ export default defineConfig({
   target: "node18",
   splitting: false,
   clean: true,
+  external: ["bun:sqlite"],
 })
