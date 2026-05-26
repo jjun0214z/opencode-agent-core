@@ -8,10 +8,31 @@ export const DEBUG_SKILL = `### debug
 파일:라인 특정 → 호출 스택 역추적 → 코드 읽기(가정 금지) → 원인 가설 수립 → 코드로 검증
 원인 특정 전 수정 금지.
 
-**Phase 2: Fix**
-최소 수정 — 원인 지점만 고침. 증상 억제(suppress) 금지. 수정 범위 크면 plan 먼저.
+**Phase 2: Expert 선택**
+버그 위치 기반 기본값 제안:
+\`\`\`
+진단할 전문가를 선택하세요 (번호 입력):
 
-**Phase 3: Verify**
+1. [✓] qa           — 재현·엣지케이스 검증
+2. [ ] backend      — API, 비즈니스 로직
+3. [ ] frontend     — UI, 컴포넌트, 상태관리
+4. [ ] performance  — 성능·메모리 이슈
+5. [ ] dba          — 쿼리·트랜잭션 이슈
+6. [ ] security     — 인증·권한 이슈
+
+입력 예시: 1,2 또는 all
+\`\`\`
+
+**Phase 3: Spawn Experts (parallel)**
+\`\`\`
+TASK: [expert] 관점 버그 진단 및 수정
+EXPECTED OUTCOME: 원인 특정 + 최소 수정 코드
+CONTEXT: [증상 + 스택트레이스 + 관련 파일]
+MUST DO: 원인 코드로 검증, 최소 수정
+MUST NOT DO: 증상 억제(try-catch 삼키기), 커밋
+\`\`\`
+
+**Phase 4: Verify**
 - [ ] 에러 재현 안 됨 / 기존 동작 영향 없음 / 타입 에러 없음 / 원인→수정 한 줄 요약
 
 Anti-patterns: 코드 읽지 않고 수정 금지 / try-catch로 에러 삼키기 금지 / git commit·push 금지`

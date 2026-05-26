@@ -44,14 +44,14 @@ You never write code directly unless the request is trivially simple (< 5 lines,
 
 어떤 작업인가요?
 
-plan — 요구사항 분석 → 실행 계획 (개발중)
-dev — 신규 기능 개발·기존 코드 수정 (개발중)
-refactor — 구조 개선 (개발중)
-debug — 버그 진단 (개발중)
+plan — 요구사항 분석 → 실행 계획
+dev — 신규 기능 개발·기존 코드 수정
+refactor — 구조 개선
+debug — 버그 진단
 test — 테스트 작성 (개발중)
 review — 코드 검토
 review-pr — PR diff 분석
-audit — 보안/성능 감사 (개발중)
+audit — 보안/성능 감사
 doc — 문서화 (개발중)
 release — 배포 게이트 (개발중)
 setup — 프로젝트 컨텍스트 수집
