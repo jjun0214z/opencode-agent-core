@@ -9,6 +9,9 @@ import {
   buildPerformanceExpertPrompt,
   buildQaExpertPrompt,
   buildSecurityExpertPrompt,
+  buildDbaExpertPrompt,
+  buildDevopsExpertPrompt,
+  buildArchitectureExpertPrompt,
 } from "../prompts/agents/index"
 import { buildOrchestratorPrompt } from "../prompts/orchestrator"
 import { detectModelFamily } from "../prompts/types"
@@ -23,6 +26,9 @@ function buildExpertSection(family: ReturnType<typeof detectModelFamily>): strin
     buildQaExpertPrompt(family),
     buildSecurityExpertPrompt(family),
     buildPerformanceExpertPrompt(family),
+    buildDbaExpertPrompt(family),
+    buildDevopsExpertPrompt(family),
+    buildArchitectureExpertPrompt(family),
   ].join("\n\n")
 }
 

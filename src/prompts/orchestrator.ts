@@ -77,11 +77,14 @@ const BASE_TAIL = `
 
 | 도메인 | Expert |
 |--------|--------|
-| API, DB, 비즈니스 로직 | \`backend\` |
+| API, 비즈니스 로직 | \`backend\` |
 | UI, 컴포넌트, 상태관리 | \`frontend\` |
 | 테스트, 엣지케이스 | \`qa\` |
 | 인증, 취약점 | \`security\` |
 | N+1, 쿼리, 번들 | \`performance\` |
+| 스키마, 마이그레이션, 쿼리 튜닝 | \`dba\` |
+| CI/CD, 컨테이너, 배포 | \`devops\` |
+| 모듈 경계, 의존성, 확장성 | \`architecture\` |
 
 위임 프롬프트 6요소 (필수):
 \`\`\`
