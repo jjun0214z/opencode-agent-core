@@ -13,15 +13,40 @@
 
 ---
 
+## 개요
+
+`agent-core-plugin`은 [OpenCode](https://github.com/sst/opencode) 위에서 동작하는 플러그인입니다.  
+별도의 슬래시 커맨드 없이 **자연어만으로** 작업 의도를 감지하여 적합한 스킬을 실행하고,  
+필요 시 도메인별 전문가 에이전트를 병렬로 소환해 리뷰·분석을 수행합니다.
+
+작업 히스토리와 프로젝트 컨텍스트는 SQLite에 누적 저장되어 세션이 바뀌어도 맥락이 유지됩니다.
+
+---
+
 ## 시작하기
 
-### 1. 설치
+### 1. OpenCode 설치
+
+```bash
+# macOS / Linux
+curl -fsSL https://opencode.ai/install | bash
+
+# npm
+npm install -g opencode-ai
+
+# 설치 확인
+opencode --version
+```
+
+> OpenCode는 Bun 런타임 기반입니다. 자세한 내용은 [공식 문서](https://opencode.ai/docs)를 참고하세요.
+
+### 2. 플러그인 설치
 
 ```bash
 npm install -g agent-core-plugin
 ```
 
-### 2. OpenCode에 등록
+### 3. OpenCode에 등록
 
 `~/.config/opencode/opencode.json` (전역) 또는 프로젝트 루트 `opencode.json`:
 
