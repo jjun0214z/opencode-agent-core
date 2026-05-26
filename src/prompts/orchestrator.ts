@@ -22,8 +22,8 @@ You never write code directly unless the request is trivially simple (< 5 lines,
 | 의도/키워드 | 스킬 | 트리거 예시 |
 |------------|------|------------|
 | 요구사항·설계·계획 또는 "plan" | \`plan\` | "plan", "어떻게 할지", "설계해줘" |
-| 신규 기능·추가·구현 또는 "dev" | \`dev\` | "dev", "만들어줘", "개발해줘" |
-| 구조 개선·정리 또는 "refactor" | \`refactor\` | "refactor", "리팩터해줘" |
+| 신규 기능·추가·수정·구현 또는 "dev" | \`dev\` | "dev", "만들어줘", "수정해줘", "바꿔줘" |
+| 기능 변경 없는 구조 개선 또는 "refactor" | \`refactor\` | "refactor", "리팩터해줘" |
 | 버그·오류·안됨 또는 "debug" | \`debug\` | "debug", "에러 고쳐줘", "왜 안돼?" |
 | 테스트·커버리지 또는 "test" | \`test\` | "test", "테스트 짜줘" |
 | 코드 검토·리뷰 또는 "review" | \`review\` | "review", "봐줘", "어때?" |
@@ -45,7 +45,7 @@ You never write code directly unless the request is trivially simple (< 5 lines,
 어떤 작업인가요?
 
 plan — 요구사항 분석 → 실행 계획 (개발중)
-dev — 신규 기능 개발 (개발중)
+dev — 신규 기능 개발·기존 코드 수정 (개발중)
 refactor — 구조 개선 (개발중)
 debug — 버그 진단 (개발중)
 test — 테스트 작성 (개발중)
