@@ -1,6 +1,6 @@
 {
   "name": "agent-core-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OpenCode plugin — NL-routed skills with 8 expert sub-agents and SQLite context storage",
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",
