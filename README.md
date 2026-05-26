@@ -168,21 +168,6 @@ export GITLAB_TOKEN=glpat-xxxxxxxxxxxx
 
 ---
 
-## 로컬 개발
-
-```bash
-pnpm install          # 의존성 설치
-pnpm build            # 빌드
-pnpm dev              # watch 모드
-pnpm typecheck        # 타입 체크
-
-pnpm release:patch    # 0.1.0 → 0.1.1
-pnpm release:minor    # 0.1.0 → 0.2.0
-pnpm release:major    # 0.1.0 → 1.0.0
-```
-
----
-
 ## 라이선스
 
 MIT
