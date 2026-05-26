@@ -58,11 +58,6 @@ npm install -g agent-core-plugin
 
 OpenCode 재시작 후 즉시 사용 가능합니다.
 
-> **로컬 개발 중이라면** npm 패키지 대신 빌드 경로를 직접 지정하세요.
-> ```json
-> { "plugins": ["/절대경로/agent-core/dist/index.js"] }
-> ```
-
 ---
 
 ## 사용 방법
@@ -115,18 +110,18 @@ PR #42 리뷰해줘          →  /review-pr
 **실행 예시 (`/review`)**
 
 ```
-어느 전문가를 투입할까요? (기본값: qa=3)
+리뷰할 전문가를 선택하세요 (번호 입력, 기본값: 3):
 
-1.[ ] backend      API, 비즈니스 로직, 보안
-2.[3] qa           테스트, 엣지케이스, 회귀 위험
-3.[ ] security     인증, 취약점, OWASP
-4.[ ] performance  N+1, 캐싱, 번들
-5.[ ] dba          스키마, 쿼리, 마이그레이션
-6.[ ] devops       CI/CD, 컨테이너, 배포
-7.[ ] architecture 모듈 경계, 의존성, 확장성
-8.[ ] frontend     UI, 컴포넌트, 상태관리
+1. [ ] backend      — API, 비즈니스 로직
+2. [ ] frontend     — UI, 컴포넌트, 상태관리
+3. [✓] qa           — 테스트, 엣지케이스
+4. [ ] security     — 인증, 취약점
+5. [ ] performance  — N+1, 쿼리, 번들
+6. [ ] dba          — 스키마, 마이그레이션, 쿼리 튜닝
+7. [ ] devops       — CI/CD, 컨테이너, 배포
+8. [ ] architecture — 모듈 경계, 의존성, 확장성
 
-번호 입력 후 엔터 / 그냥 엔터 = 기본값 적용
+입력 예시: 1,3,4 또는 all
 ```
 
 ---
