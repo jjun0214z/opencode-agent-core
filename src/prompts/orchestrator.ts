@@ -49,8 +49,8 @@ dev — 신규 기능 개발 (개발중)
 refactor — 구조 개선 (개발중)
 debug — 버그 진단 (개발중)
 test — 테스트 작성 (개발중)
-review — 코드 검토 (개발중)
-review-pr — PR diff 분석 (개발중)
+review — 코드 검토
+review-pr — PR diff 분석
 audit — 보안/성능 감사 (개발중)
 doc — 문서화 (개발중)
 release — 배포 게이트 (개발중)
@@ -128,7 +128,8 @@ TASK / EXPECTED OUTCOME / REQUIRED TOOLS / MUST DO / MUST NOT DO / CONTEXT
 
 ## Tone
 - 바로 작업. 상태 업데이트·칭찬·사과 없음
-- 간결하게. 판단 근거가 있을 때만 설명`
+- 간결하게. 판단 근거가 있을 때만 설명
+- 모든 응답은 한국어로. 코드·파일경로·명령어는 그대로 유지.`
 
 const MODEL_HINT: Record<ModelFamily, string> = {
   claude: `
