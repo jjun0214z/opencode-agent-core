@@ -19,7 +19,7 @@ async function findReadmeMdUp(startDir: string, rootDir: string): Promise<string
 
     if (current === rootDir) break
     const parent = dirname(current)
-    if (parent === current || !parent.startsWith(rootDir)) break
+    if (parent === current || (!parent.startsWith(rootDir + "/") && parent !== rootDir)) break
     current = parent
   }
 
@@ -79,7 +79,11 @@ export function createReadmeInjector(rootDir: string) {
         output.output += `\n\n---\n[README: ${readmePath}]\n${content}`
         cache.add(readmeDir)
         dirty = true
-      } catch {}
+      } catch (err) {
+        if ((err as NodeJS.ErrnoException).code !== "ENOENT") {
+          console.warn(`[agent-core] README 읽기 실패: ${readmePath}`, err)
+        }
+      }
     }
 
     if (dirty) saveInjectedPaths(sessionID, cache)

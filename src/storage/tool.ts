@@ -15,7 +15,7 @@ export function createAgentContextWriteTool(projectDir: string): ToolDefinition 
       slug: tool.schema.string().optional().describe("external 타입 시 파일 슬러그"),
       source_path: tool.schema.string().optional().describe("external 타입 시 원본 파일 경로"),
     },
-    async execute({ type, content, skill, slug, source_path }) {
+    async execute({ type, content, skill, slug, source_path }): Promise<string> {
       if (type === "context") {
         upsertContext(projectDir, content)
         return "context 저장 완료"
@@ -25,11 +25,11 @@ export function createAgentContextWriteTool(projectDir: string): ToolDefinition 
         return "history 저장 완료"
       }
       if (type === "external") {
-        if (!slug) return { title: "오류", output: "slug 필수" }
+        if (!slug) return "오류: slug 필수"
         upsertExternalFile(projectDir, slug, source_path ?? "", content)
         return `external/${slug} 저장 완료`
       }
-      return { title: "오류", output: `알 수 없는 type: ${type}` }
+      return `오류: 알 수 없는 type: ${type}`
     },
   })
 }
