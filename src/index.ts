@@ -9,7 +9,7 @@ const plugin: Plugin = async (ctx) => {
       const model = config.model
       config.agent = config.agent ?? {}
       config.agent.orchestrator = {
-        description: "Core orchestrator. Classifies intent, loads skills, delegates to sub-agents.",
+        description: "agent-core primary router. Classifies intent, loads skills, delegates to sub-agents.",
         mode: "primary",
         color: "#4A90D9",
         model,

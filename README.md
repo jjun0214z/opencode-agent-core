@@ -60,6 +60,35 @@ OpenCode 재시작 후 즉시 사용 가능합니다.
 
 ---
 
+## OMO 공존 설정
+
+`oh-my-openagent`와 함께 사용할 때는 에이전트 역할을 분리해서 운영하는 것을 권장합니다.
+
+- `orchestrator` (`agent-core-plugin`) — 스킬 라우팅/하네스 규칙 적용
+- OMO 에이전트 (`Sisyphus - ultraworker` 등) — OMO 워크플로우 전용
+- OpenCode 기본 에이전트 (`build`, `plan`) — 기본 동작 유지
+
+예시 (`~/.config/opencode/opencode.json`):
+
+```json
+{
+  "plugin": [
+    "/Users/min/Documents/min/agent/agent-core/dist",
+    "oh-my-openagent",
+    "@ex-machina/opencode-anthropic-auth",
+    "cursor-oauth-opencode"
+  ]
+}
+```
+
+운영 팁:
+
+- agent-core 규칙이 필요할 때: `--agent orchestrator`
+- OMO 모드가 필요할 때: OMO 에이전트 선택 (`Sisyphus - ultraworker` 등)
+- 하나의 작업에서는 에이전트를 자주 전환하지 않는 것이 안정적입니다.
+
+---
+
 ## 사용 방법
 
 자연어로 말하거나, 스킬명을 직접 입력하면 됩니다.

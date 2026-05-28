@@ -68,10 +68,15 @@ export function createHooks(ctx: PluginInput): Partial<Hooks> {
     "experimental.chat.system.transform": async (input, output) => {
       const modelStr = `${input.model.providerID}/${input.model.id}`
       const family = detectModelFamily(modelStr)
+      const maybeInput = input as unknown as {
+        agent?: string
+        session?: { agent?: string }
+      }
+      const activeAgent = maybeInput.agent ?? maybeInput.session?.agent
+      const shouldApplyCorePrompt = activeAgent === "orchestrator"
 
       const sections = [
-        buildOrchestratorPrompt(modelStr),
-        buildExpertSection(family),
+        ...(shouldApplyCorePrompt ? [buildOrchestratorPrompt(modelStr), buildExpertSection(family)] : []),
         ...buildContextSections(ctx.directory),
       ]
 
