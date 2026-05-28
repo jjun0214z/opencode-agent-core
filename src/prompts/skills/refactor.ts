@@ -10,7 +10,7 @@ export const REFACTOR_SKILL = `### refactor
 
 **Phase 2: Expert 선택**
 \`\`\`
-리팩터링 검토할 전문가를 선택하세요 (번호 입력):
+리팩터링 검토할 전문가를 선택하세요 (번호 입력, 기본값: 1,2):
 
 1. [✓] architecture — 모듈 경계, 의존성, 확장성
 2. [✓] qa           — 동작 보존 검증

@@ -20,7 +20,7 @@ package.json / pyproject.toml / go.mod 읽어 프레임워크 감지:
 
 **Phase 1: 레이어 선택**
 \`\`\`
-어떤 테스트를 작성할까요?
+어떤 테스트를 작성할까요? (번호 입력, 기본값: 없음)
 1. [ ] Unit/Component — 함수·컴포넌트 단위
 2. [ ] Integration    — 여러 모듈 연동
 3. [ ] E2E            — 전체 유저 플로우

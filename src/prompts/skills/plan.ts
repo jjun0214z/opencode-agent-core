@@ -10,7 +10,7 @@ export const PLAN_SKILL = `### plan
 **Phase 2: Expert 선택**
 분석 결과 기반 기본값 제안 후 유저 확인:
 \`\`\`
-설계 검토할 전문가를 선택하세요 (번호 입력):
+설계 검토할 전문가를 선택하세요 (번호 입력, 기본값: 1):
 
 1. [✓] architecture — 모듈 경계, 의존성, 확장성
 2. [ ] backend      — API, 비즈니스 로직
