@@ -68,9 +68,7 @@ OpenCode 재시작 후 즉시 사용 가능합니다.
 {
   "plugins": [
     "agent-core-plugin",
-    "oh-my-openagent",
-    "@ex-machina/opencode-anthropic-auth",
-    "cursor-oauth-opencode"
+    "oh-my-openagent"
   ]
 }
 ```
