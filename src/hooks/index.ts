@@ -45,7 +45,7 @@ function buildContextSections(projectDir: string): string[] {
     sections.push(`## External: ${f.slug}\n> 출처: ${f.source_path}\n\n${f.content}`)
   }
 
-  const templates = getTemplates(projectDir)
+  const templates = getTemplates()
   if (templates.length > 0) {
     const entries = templates.map(t => `### ${t.slug}\n${t.content}`).join("\n\n")
     sections.push(`# 저장된 문서 템플릿\n\n${entries}`)

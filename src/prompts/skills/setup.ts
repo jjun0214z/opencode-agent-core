@@ -9,16 +9,17 @@ export const SETUP_SKILL = `### setup
 ---
 
 **Phase 0: 모드 선택** _(유저 입력 게이트 — 응답 전 Phase 1 진입 금지)_
+⛔ \`/core-setup\` 커맨드 진입 자체는 모드 선택으로 간주하지 않는다.
+⛔ 기본값 없음 — 1/2/3/4 중 유저가 직접 입력해야만 진행. 빈 입력 = 대기.
 
 \`\`\`
-컨텍스트 수집 방식을 선택하세요 (번호 입력, 기본값: 1):
+컨텍스트 수집 방식을 선택하세요 (번호 입력):
 
 1 — 프로젝트 기준 (git 히스토리, 파일 구조)
 2 — 외부파일 기준 (설계 문서, 스펙, PDF 등)
 3 — 문서 템플릿 설정 (core-doc 실행 시 적용할 템플릿 등록)
 4 — 저장 항목 관리 (목록 확인 · 삭제)
 \`\`\`
-빈 응답 시 기본값 1 적용.
 
 출력: \`✅ Phase 0 완료 — 모드: [선택]\` 후 Phase 1 진입.
 
@@ -207,42 +208,122 @@ core-doc 실행 시 템플릿 목록에 표시됩니다.
 출력 예시:
 \`\`\`
 ## 저장된 항목
-- context: 있음
+📍 DB: /path/to/agent-core.db  |  프로젝트: /path/to/project
+
+- context: 있음  (업데이트: 2026-05-10)
 - external (2개):
   - design-spec  ← /path/to/spec.md
   - api-doc      ← /path/to/api.yaml
 - template (1개):
-  - doc-template-기획서
-- history: 2025-05, 2025-06
+  - doc-template-기획서  (형식: .md / 섹션: 개요, 배경, 요구사항)
+- history (3건):
+  - [41] setup        2026-05-10  프로젝트 컨텍스트 저장 완료 — agent-core-plugin ...
+  - [42] dev          2026-05-12  로그인 기능 구현 완료 — JWT 발급·검증 로직 추가
+  - [43] debug        2026-05-15  버튼 클릭 오류 수정 — onClick 핸들러 null 체크 누락
 \`\`\`
 
 출력: \`✅ Step 1 완료 — 목록 조회\` 후 Step 2 진입.
 
 ---
 
-**Step 2: 삭제 선택** _(유저 입력 게이트 — 응답 전 Step 3 진입 금지)_
+**Step 2: 삭제 방식 선택** _(유저 입력 게이트 — 응답 전 Step 3 진입 금지)_
 ⛔ STOP. 이전 Step 완료 마커 없으면 진입 금지.
 
 \`\`\`
-삭제할 항목을 입력하세요. (없으면 Enter로 종료)
+삭제 방식을 선택하세요 (번호 입력):
 
-예시:
-  context              — 프로젝트 컨텍스트 전체 삭제
-  external design-spec — 외부파일 slug 지정 삭제
-  template doc-template-기획서 — 템플릿 삭제
-  history              — 히스토리 전체 삭제
-  history 2025-05      — 특정 월 히스토리 삭제
+1 — 항목 선택 삭제  (모든 항목 번호 목록에서 직접 선택)
+2 — 종류 선택 후 삭제  (종류 먼저 고르고 해당 항목 선택)
+3 — 전체 초기화  (DB 내 모든 항목 삭제)
+0 — 취소
 \`\`\`
-빈 응답 시 삭제 없이 종료.
+빈 응답 또는 0 선택 시 종료.
 
-출력: \`✅ Step 2 완료 — 삭제 대상: [목록 또는 없음]\` 후 Step 3 진입.
+출력: \`✅ Step 2 완료 — 방식: [선택]\` 후 Step 3 진입.
 
 ---
 
-**Step 3: 삭제 실행**
+**Step 3: 삭제 대상 확정** _(유저 입력 게이트 — 응답 전 Step 4 진입 금지)_
+⛔ STOP. 이전 Step 완료 마커 없으면 진입 금지.
+Step 1에서 이미 호출한 \`list\` 결과를 재사용한다 (재호출 금지).
+- context · external · history: 현재 프로젝트 범위
+- template: 전체 공용 — 삭제 시 모든 프로젝트 세션에 영향. 삭제 전 경고 문구 표시.
+
+**[방식 1: 항목 선택 삭제]**
+Step 1 \`list\` 결과를 기반으로 항목에 번호를 부여해 표시. history는 row 단위:
+\`\`\`
+삭제할 항목 번호를 입력하세요 (쉼표 구분, 예: 1,3,5):
+
+[context]
+  1. context  (업데이트: YYYY-MM-DD)
+
+[external]
+  2. design-spec  ← /path/to/spec.md
+  3. api-doc      ← /path/to/api.yaml
+
+[template]
+  4. doc-template-기획서  (형식: .md / 섹션: ...)
+
+[history]
+  5. [41] setup        2026-05-10  프로젝트 컨텍스트 저장 완료 ...
+  6. [42] dev          2026-05-12  로그인 기능 구현 완료 ...
+  7. [43] debug        2026-05-15  버튼 클릭 오류 수정 ...
+\`\`\`
+존재하는 항목만 번호 부여. history row의 \`[숫자]\`는 DB row ID. 빈 응답 시 취소.
+
+**[방식 2: 종류 선택 후 삭제]** _(2-round)_
+
+_Round 1 — 종류 선택_ _(유저 입력 게이트)_
+\`\`\`
+삭제할 종류를 선택하세요 (번호 입력):
+
+1 — context
+2 — external  ([N]개)
+3 — template  ([N]개, 공용 — 삭제 시 전 프로젝트 영향)
+4 — history   ([N]건)
+\`\`\`
+빈 응답 시 취소.
+
+_Round 2 — 해당 종류의 항목 선택_ _(유저 입력 게이트)_
+Step 1 \`list\` 결과에서 선택된 종류의 항목만 번호 목록으로 표시 (현재 프로젝트 범위):
+\`\`\`
+삭제할 항목 번호를 입력하세요 (쉼표 구분, 또는 "전체"):
+
+  1. [41] setup   2026-05-10  ...   ← history 선택 시 예시
+  2. [42] dev     2026-05-12  ...
+  3. [43] debug   2026-05-15  ...
+\`\`\`
+- context: 항목이 1개이므로 번호 없이 "삭제하시겠습니까? (Enter = 확인, 그 외 = 취소)" 출력
+- external·template: slug 목록 번호로 표시
+- history: DB row ID \`[숫자]\`와 함께 번호로 표시
+- "전체" 입력 시 해당 종류 전체 삭제
+- 빈 응답 시 취소
+
+**[방식 3: 전체 초기화]**
+\`\`\`
+⚠️  현재 프로젝트의 context·external·history와 공용 template 전체가 삭제됩니다.
+    template 삭제는 모든 프로젝트 세션에 영향을 줍니다.
+    확인하려면 "전체삭제" 를 입력하세요:
+\`\`\`
+정확히 "전체삭제" 입력 시에만 진행. 그 외 입력 시 취소.
+
+출력: \`✅ Step 3 완료 — 삭제 대상: [확정 목록]\` 후 Step 4 진입.
+
+---
+
+**Step 4: 삭제 실행**
 ⛔ STOP. 이전 Step 완료 마커 없으면 진입 금지.
 
-선택된 항목마다 \`agent_context_manage\` 도구 호출 (action="delete", type, slug).
+확정된 항목마다 \`agent_context_manage\` 도구 호출:
+- context: action="delete", type="context"
+- external: action="delete", type="external", slug=[slug]
+- template: action="delete", type="template", slug=[slug]
+- history 개별 row: action="delete", type="history", id=[row ID]
+- history 월 전체: action="delete", type="history", slug="YYYY-MM"
+- history 전체: action="delete", type="history"
+- 방식 3(전체 초기화): context → external 각 slug → template 각 slug → history 순서로 개별 호출.
+- 실패한 항목은 오류 메시지 표시 후 계속 진행.
+
 삭제 완료 후:
 \`\`\`
 ✅ 삭제 완료

@@ -206,9 +206,9 @@ Phase 4: Verify           — 타입 체크, 변경 범위 확인
 | 테이블 | 내용 | 저장 방식 |
 |--------|------|-----------|
 | `context` | 프로젝트 개요, 스택, git 히스토리 | 프로젝트당 1행, upsert |
-| `external_files` | 외부 설계 문서 · 스펙 요약 | slug 기반, upsert |
-| `templates` | `/core-doc` 실행 시 적용할 문서 템플릿 | slug 기반, upsert |
-| `history` | 스킬별 작업 완료 기록 | 월별 누적, append |
+| `external_files` | 외부 설계 문서 · 스펙 요약 | 프로젝트 + slug 기반, upsert |
+| `templates` | `/core-doc` 실행 시 적용할 문서 템플릿 | **전체 공용** — slug 기반, upsert (프로젝트 무관) |
+| `history` | 스킬별 작업 완료 기록 | row 단위 누적, ID 기반 개별 삭제 가능 |
 
 **관리 도구**
 
@@ -219,21 +219,31 @@ Phase 4: Verify           — 타입 체크, 변경 범위 확인
 | `agent_context_write` | 항목 저장·갱신 |
 | `agent_context_manage` | 목록 조회(`list`) · 항목 삭제(`delete`) |
 
-**DB 경로**
+**DB 경로** — 단일 글로벌 파일, 모든 프로젝트 공유
 
 | OS | 경로 |
 |----|------|
 | macOS / Linux | `~/.local/share/agent-core/agent-core.db` |
 | Windows | `%APPDATA%\agent-core\agent-core.db` |
 
+`context` · `external_files` · `history`는 `project_dir` 컬럼으로 프로젝트별 분리됩니다.  
+`templates`는 `project_dir` 없이 저장되어 모든 프로젝트 세션에서 공유됩니다.
+
 ### `/core-setup` 수집 모드
 
 ```
-1 — 프로젝트 기준   : git 히스토리, 파일 구조, 스택 자동 수집
-2 — 외부파일 기준   : 설계 문서, 스펙, PDF 등 경로 입력 → 요약 저장
-3 — 문서 템플릿 설정 : 구조 + 디자인 설정 저장 (참조 파일 기반 자동 추출 지원)
-4 — 저장 항목 관리  : context·external·template·history 목록 확인 · 삭제
+1 — 프로젝트 기준    : git 히스토리, 파일 구조, 스택 자동 수집
+2 — 외부파일 기준    : 설계 문서, 스펙, PDF 등 경로 입력 → 요약 저장
+3 — 문서 템플릿 설정  : 구조 + 디자인 설정 저장 (참조 파일 기반 자동 추출 지원)
+4 — 저장 항목 관리   : context·external·template·history 목록 확인 · 선택 삭제
 ```
+
+모드 4 삭제 방식:
+- **항목 선택 삭제** — 전체 목록을 번호로 표시, 원하는 항목만 삭제
+- **종류 선택 후 삭제** — context / external / template / history 중 종류 먼저 선택 → 해당 항목 선택 삭제
+- **전체 초기화** — "전체삭제" 입력 확인 후 삭제
+
+> ⚠️ `template` 삭제는 전체 공용이므로 모든 프로젝트 세션에 영향을 줍니다.
 
 **모드 3 — 문서 템플릿 저장 항목:**
 
