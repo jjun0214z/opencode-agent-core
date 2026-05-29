@@ -123,6 +123,63 @@ export function getTemplates(
     .all(projectDir) as Array<{ slug: string; content: string }>
 }
 
+export function deleteExternalFile(projectDir: string, slug: string): void {
+  getDb()
+    .prepare("DELETE FROM external_files WHERE project_dir = ? AND slug = ?")
+    .run(projectDir, slug)
+}
+
+export function deleteTemplate(projectDir: string, slug: string): void {
+  getDb()
+    .prepare("DELETE FROM templates WHERE project_dir = ? AND slug = ?")
+    .run(projectDir, slug)
+}
+
+export function clearContext(projectDir: string): void {
+  getDb()
+    .prepare("DELETE FROM context WHERE project_dir = ?")
+    .run(projectDir)
+}
+
+export function clearHistory(projectDir: string, yearMonth?: string): void {
+  if (yearMonth) {
+    getDb()
+      .prepare("DELETE FROM history WHERE project_dir = ? AND year_month = ?")
+      .run(projectDir, yearMonth)
+  } else {
+    getDb()
+      .prepare("DELETE FROM history WHERE project_dir = ?")
+      .run(projectDir)
+  }
+}
+
+export function listAll(projectDir: string): {
+  context: boolean
+  externals: Array<{ slug: string; source_path: string }>
+  templates: Array<{ slug: string }>
+  historyMonths: string[]
+} {
+  const context = !!getDb()
+    .prepare("SELECT 1 FROM context WHERE project_dir = ?")
+    .get(projectDir)
+
+  const externals = getDb()
+    .prepare("SELECT slug, source_path FROM external_files WHERE project_dir = ? ORDER BY created_at")
+    .all(projectDir) as Array<{ slug: string; source_path: string }>
+
+  const templates = getDb()
+    .prepare("SELECT slug FROM templates WHERE project_dir = ? ORDER BY updated_at")
+    .all(projectDir) as Array<{ slug: string }>
+
+  const historyMonths = (
+    getDb()
+      .prepare("SELECT DISTINCT year_month FROM history WHERE project_dir = ? ORDER BY year_month")
+      .all(projectDir) as Array<{ year_month: string }>
+  ).map(r => r.year_month)
+
+  return { context, externals, templates, historyMonths }
+}
+
 export function getCurrentMonthHistory(
   projectDir: string,
 ): Array<{ skill: string; content: string; created_at: number }> {

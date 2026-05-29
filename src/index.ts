@@ -53,7 +53,7 @@ const plugin: Plugin = async (ctx) => {
         "core-review":   { template: "review: ", description: "[agent-core] 코드 검토 · PR diff 분석", agent: "orchestrator" },
         "core-audit":    { template: "audit: ", description: "[agent-core] 보안 · 성능 감사", agent: "orchestrator" },
         "core-doc":      { template: "doc: ", description: "[agent-core] 문서화", agent: "orchestrator" },
-        "core-setup":    { template: "setup: ", description: "[agent-core] 프로젝트 컨텍스트 수집", agent: "orchestrator" },
+        "core-setup":    { template: "setup: ", description: "[agent-core] 컨텍스트·템플릿 수집 및 관리", agent: "orchestrator" },
       })
     },
   }

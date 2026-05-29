@@ -15,7 +15,7 @@ import {
 import { buildOrchestratorPrompt } from "../prompts/orchestrator"
 import { detectModelFamily } from "../prompts/types"
 import { getCurrentMonthHistory, getContext, getExternalFiles, getTemplates } from "../storage/db"
-import { createAgentContextWriteTool } from "../storage/tool"
+import { createAgentContextWriteTool, createAgentContextManageTool } from "../storage/tool"
 
 function buildExpertSection(family: ReturnType<typeof detectModelFamily>): string {
   return [
@@ -71,6 +71,7 @@ export function createHooks(ctx: PluginInput): Partial<Hooks> {
   return {
     tool: {
       agent_context_write: createAgentContextWriteTool(ctx.directory),
+      agent_context_manage: createAgentContextManageTool(ctx.directory),
     },
 
     "experimental.chat.system.transform": async (input, output) => {

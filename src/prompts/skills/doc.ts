@@ -123,7 +123,7 @@ agent(
   prompt: """
   TASK: {expert} 관점 설계 문서 작성
   EXPECTED OUTCOME: docs/<slug>.{형식} 파일 (실제 저장 완료)
-  CONTEXT: [관련 코드 또는 요구사항] + [출력 형식: {형식}] + [기존 docs/ 내용] + [템플릿 설정: {섹션순서·제목형식·다이어그램·언어} 또는 없음]
+  CONTEXT: [관련 코드 또는 요구사항] + [출력 형식: {형식}] + [기존 docs/ 내용] + [템플릿 설정: {섹션순서·제목형식·다이어그램·언어·section_divider·callout_style·color_theme·font·cover_page·header·footer} 또는 없음]
   MUST DO: 실제 코드 또는 요구사항 기반 / 구조·결정·제약 위주 / docs/ 경로에 Write로 저장
   MUST NOT DO: 코드 수정 / 가정으로 작성 / git commit·push
   REQUIRED TOOLS: Read, Write, Bash
