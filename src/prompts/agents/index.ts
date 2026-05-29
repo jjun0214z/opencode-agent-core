@@ -1,5 +1,6 @@
 export { buildBackendExpertPrompt } from "./backend"
 export { buildFrontendExpertPrompt } from "./frontend"
+export { buildMobileExpertPrompt } from "./mobile"
 export { buildQaExpertPrompt } from "./qa"
 export { buildSecurityExpertPrompt } from "./security"
 export { buildPerformanceExpertPrompt } from "./performance"

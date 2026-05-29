@@ -58,8 +58,9 @@ export const TEST_SKILL = `### test
 
 1. [✓] qa           — 테스트 전략, 엣지케이스
 2. [ ] frontend     — 컴포넌트·E2E 테스트
-3. [ ] backend      — API·로직 테스트
-4. [ ] dba          — DB·쿼리 테스트
+3. [ ] mobile       — iOS·Android·RN·Flutter 테스트
+4. [ ] backend      — API·로직 테스트
+5. [ ] dba          — DB·쿼리 테스트
 
 입력 예시: 1,2 또는 all
 \`\`\`

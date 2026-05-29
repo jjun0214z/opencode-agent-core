@@ -66,12 +66,13 @@ CLI 미로그인·환경변수 미설정 시에만 유저에게 자격증명 요
 
 1. [ ] backend      — API, 비즈니스 로직
 2. [ ] frontend     — UI, 컴포넌트, 상태관리
-3. [✓] qa           — 테스트, 엣지케이스
-4. [ ] security     — 인증, 취약점
-5. [ ] performance  — N+1, 쿼리, 번들
-6. [ ] dba          — 스키마, 마이그레이션, 쿼리 튜닝
-7. [ ] devops       — CI/CD, 컨테이너, 배포
-8. [ ] architecture — 모듈 경계, 의존성, 확장성
+3. [ ] mobile       — iOS, Android, React Native, Flutter
+4. [✓] qa           — 테스트, 엣지케이스
+5. [ ] security     — 인증, 취약점
+6. [ ] performance  — N+1, 쿼리, 번들
+7. [ ] dba          — 스키마, 마이그레이션, 쿼리 튜닝
+8. [ ] devops       — CI/CD, 컨테이너, 배포
+9. [ ] architecture — 모듈 경계, 의존성, 확장성
 
 입력 예시: 1,3,4 또는 all
 \`\`\`

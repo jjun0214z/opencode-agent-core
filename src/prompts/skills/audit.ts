@@ -34,9 +34,10 @@ export const AUDIT_SKILL = `### audit
 
 1. [✓] security     — OWASP Top 10, 인증, 취약점
 2. [✓] performance  — N+1, 쿼리, 번들, 병목
-3. [ ] dba          — 스키마, 인덱스, 쿼리 튜닝
-4. [ ] devops       — CI/CD, 컨테이너, 시크릿 노출
-5. [ ] architecture — 모듈 경계, 의존성
+3. [ ] mobile       — 모바일 보안, 권한, 오프라인 처리
+4. [ ] dba          — 스키마, 인덱스, 쿼리 튜닝
+5. [ ] devops       — CI/CD, 컨테이너, 시크릿 노출
+6. [ ] architecture — 모듈 경계, 의존성
 
 입력 예시: 1,2,3 또는 all
 \`\`\`

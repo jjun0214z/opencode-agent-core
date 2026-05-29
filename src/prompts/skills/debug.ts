@@ -43,9 +43,10 @@ export const DEBUG_SKILL = `### debug
 1. [✓] qa           — 재현·엣지케이스 검증
 2. [ ] backend      — API, 비즈니스 로직
 3. [ ] frontend     — UI, 컴포넌트, 상태관리
-4. [ ] performance  — 성능·메모리 이슈
-5. [ ] dba          — 쿼리·트랜잭션 이슈
-6. [ ] security     — 인증·권한 이슈
+4. [ ] mobile       — iOS, Android, React Native, Flutter
+5. [ ] performance  — 성능·메모리 이슈
+6. [ ] dba          — 쿼리·트랜잭션 이슈
+7. [ ] security     — 인증·권한 이슈
 
 입력 예시: 1,2 또는 all
 \`\`\`

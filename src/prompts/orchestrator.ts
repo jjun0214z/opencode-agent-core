@@ -90,16 +90,23 @@ const BASE_TAIL = `
 
 ## 위임 (Delegation)
 
-| 도메인 | Expert |
-|--------|--------|
-| API, 비즈니스 로직 | \`backend\` |
-| UI, 컴포넌트, 상태관리 | \`frontend\` |
-| 테스트, 엣지케이스 | \`qa\` |
-| 인증, 취약점 | \`security\` |
-| N+1, 쿼리, 번들 | \`performance\` |
-| 스키마, 마이그레이션, 쿼리 튜닝 | \`dba\` |
-| CI/CD, 컨테이너, 배포 | \`devops\` |
-| 모듈 경계, 의존성, 확장성 | \`architecture\` |
+| 도메인 | Expert | 집중 영역 |
+|--------|--------|-----------|
+| API, 비즈니스 로직 | \`backend\` | REST/GraphQL, 서비스 레이어, 트랜잭션 |
+| UI, 컴포넌트, 상태관리 | \`frontend\` | React/Vue/Svelte, 렌더링, 접근성 |
+| iOS, Android, React Native, Flutter | \`mobile\` | 플랫폼 API, 생명주기, 오프라인, 권한, 스토어 가이드라인 |
+| 테스트, 엣지케이스 | \`qa\` | 단위·통합·E2E, 경계값, 회귀 |
+| 인증, 취약점 | \`security\` | OWASP Top 10, 인증·인가, 시크릿 관리 |
+| N+1, 쿼리, 번들 | \`performance\` | 렌더링 최적화, 쿼리 튜닝, 번들 사이즈 |
+| 스키마, 마이그레이션, 쿼리 튜닝 | \`dba\` | ERD, 인덱스 전략, 마이그레이션 안전성 |
+| CI/CD, 컨테이너, 배포 | \`devops\` | GitHub Actions, Docker, 인프라 as Code |
+| 모듈 경계, 의존성, 확장성 | \`architecture\` | 레이어 분리, 결합도, ADR |
+
+**mobile expert 판단 기준:**
+- 파일 경로에 \`ios/\`, \`android/\`, \`app/\`, \`screens/\`, \`components/\` (RN/Flutter 구조) 포함
+- \`.swift\`, \`.kt\`, \`.dart\`, \`.m\`, \`.xib\`, \`.storyboard\` 확장자
+- \`react-native\`, \`expo\`, \`flutter\`, \`capacitor\`, \`ionic\` 패키지 의존성
+- 플랫폼 생명주기(AppState, foreground/background), 권한 요청, 푸시 알림, 딥링크 관련 코드
 
 위임 프롬프트 6요소 (필수):
 \`\`\`

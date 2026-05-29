@@ -40,14 +40,15 @@ export const DEV_SKILL = `### dev
 
 1. [✓] backend      — API, 비즈니스 로직
 2. [ ] frontend     — UI, 컴포넌트, 상태관리
-3. [ ] qa           — 테스트, 엣지케이스
-4. [ ] security     — 인증, 취약점
-5. [ ] performance  — N+1, 쿼리, 번들
-6. [ ] dba          — 스키마, 마이그레이션
+3. [ ] mobile       — iOS, Android, React Native, Flutter
+4. [ ] qa           — 테스트, 엣지케이스
+5. [ ] security     — 인증, 취약점
+6. [ ] performance  — N+1, 쿼리, 번들
+7. [ ] dba          — 스키마, 마이그레이션
 
 입력 예시: 1,3 또는 all
 \`\`\`
-UI 포함 → frontend 기본 추가 / DB 포함 → dba 기본 추가.
+UI 포함 → frontend 기본 추가 / 모바일 포함 → mobile 기본 추가 / DB 포함 → dba 기본 추가.
 
 출력: \`✅ Phase 2 완료 — Expert: [선택 목록]\` 후 Phase 3 진입.
 

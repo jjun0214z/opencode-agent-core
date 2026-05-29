@@ -60,7 +60,7 @@ export const DOC_SKILL = `### doc
 ⛔ STOP. 이전 Phase 완료 마커 없으면 진입 금지.
 
 유형별 Expert 자동 결정:
-- 화면설계 → frontend
+- 화면설계 → frontend (모바일 화면 포함 시 mobile 추가)
 - API 스펙 → backend
 - DB 스키마 → dba
 - 아키텍처 → architecture
