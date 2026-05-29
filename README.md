@@ -48,7 +48,8 @@ opencode --version
 }
 ```
 
-> OpenCode가 플러그인을 자동으로 설치합니다. 별도 `npm install` 불필요.
+> 플러그인이 설치되어 있지 않으면 OpenCode가 자동으로 설치합니다.  
+> 최신 버전으로 업데이트하려면 `npm install -g agent-core-plugin@latest` 를 직접 실행하세요.
 
 OpenCode 재시작 후 즉시 사용 가능합니다.
 
