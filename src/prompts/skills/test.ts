@@ -13,18 +13,21 @@ export const TEST_SKILL = `### test
 ⛔ 프레임워크 미확인 상태에서 Phase 1 진입 금지.
 
 1. 대상 파일·모듈 확인
-2. package.json / pyproject.toml / go.mod 읽어 프레임워크 감지:
+2. package.json / pyproject.toml / go.mod / pubspec.yaml 읽어 프레임워크 감지:
    - frontend: vitest / jest / @testing-library / cypress / playwright
    - backend: pytest / junit / go test / rspec
-3. 설정 파일 확인: vitest.config.ts / jest.config.ts / playwright.config.ts
+   - mobile: detox / @testing-library/react-native / xctest / espresso / flutter_test
+3. 설정 파일 확인: vitest.config.ts / jest.config.ts / playwright.config.ts / detox.config.js
 
 프레임워크 미감지 시 유저에게 설치 제안:
 \`\`\`
 테스트 프레임워크가 없습니다. 설치할까요? (번호 입력, 기본값: 없음)
-1. Vite 계열  → vitest + @testing-library
-2. Next.js    → jest + @testing-library
-3. E2E        → playwright
-4. Python     → pytest
+1. Vite 계열     → vitest + @testing-library
+2. Next.js       → jest + @testing-library
+3. E2E           → playwright
+4. Python        → pytest
+5. React Native  → jest + detox
+6. Flutter       → flutter_test
 \`\`\`
 유저 응답 전 Phase 1 진입 금지.
 

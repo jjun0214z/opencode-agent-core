@@ -4,6 +4,7 @@ import { createReadmeInjector } from "../context/readme-injector"
 import {
   buildBackendExpertPrompt,
   buildFrontendExpertPrompt,
+  buildMobileExpertPrompt,
   buildPerformanceExpertPrompt,
   buildQaExpertPrompt,
   buildSecurityExpertPrompt,
@@ -13,7 +14,7 @@ import {
 } from "../prompts/agents/index"
 import { buildOrchestratorPrompt } from "../prompts/orchestrator"
 import { detectModelFamily } from "../prompts/types"
-import { getCurrentMonthHistory, getContext, getExternalFiles } from "../storage/db"
+import { getCurrentMonthHistory, getContext, getExternalFiles, getTemplates } from "../storage/db"
 import { createAgentContextWriteTool } from "../storage/tool"
 
 function buildExpertSection(family: ReturnType<typeof detectModelFamily>): string {
@@ -23,6 +24,7 @@ function buildExpertSection(family: ReturnType<typeof detectModelFamily>): strin
     "",
     buildBackendExpertPrompt(family),
     buildFrontendExpertPrompt(family),
+    buildMobileExpertPrompt(family),
     buildQaExpertPrompt(family),
     buildSecurityExpertPrompt(family),
     buildPerformanceExpertPrompt(family),
@@ -41,6 +43,12 @@ function buildContextSections(projectDir: string): string[] {
   const externals = getExternalFiles(projectDir)
   for (const f of externals) {
     sections.push(`## External: ${f.slug}\n> 출처: ${f.source_path}\n\n${f.content}`)
+  }
+
+  const templates = getTemplates(projectDir)
+  if (templates.length > 0) {
+    const entries = templates.map(t => `### ${t.slug}\n${t.content}`).join("\n\n")
+    sections.push(`# 저장된 문서 템플릿\n\n${entries}`)
   }
 
   const history = getCurrentMonthHistory(projectDir)

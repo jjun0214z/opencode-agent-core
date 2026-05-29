@@ -1,5 +1,5 @@
 import { tool, type ToolDefinition } from "@opencode-ai/plugin"
-import { appendHistory, upsertContext, upsertExternalFile } from "./db"
+import { appendHistory, upsertContext, upsertExternalFile, upsertTemplate } from "./db"
 
 export function createAgentContextWriteTool(projectDir: string): ToolDefinition {
   return tool({
@@ -7,12 +7,13 @@ export function createAgentContextWriteTool(projectDir: string): ToolDefinition 
       "agent-core DB에 컨텍스트를 저장한다. " +
       "type=context: 프로젝트 컨텍스트 저장 (setup 모드1). " +
       "type=external: 외부파일 요약 저장 (setup 모드2, slug·source_path 필수). " +
+      "type=template: 문서 템플릿 저장 (setup 모드3, slug 필수). " +
       "type=history: 스킬 완료 기록 (skill 필수).",
     args: {
-      type: tool.schema.enum(["context", "history", "external"]),
+      type: tool.schema.enum(["context", "history", "external", "template"]),
       content: tool.schema.string().describe("저장할 내용"),
       skill: tool.schema.string().optional().describe("history 타입 시 스킬명 (예: setup, dev, debug)"),
-      slug: tool.schema.string().optional().describe("external 타입 시 파일 슬러그"),
+      slug: tool.schema.string().optional().describe("external·template 타입 시 슬러그"),
       source_path: tool.schema.string().optional().describe("external 타입 시 원본 파일 경로"),
     },
     async execute({ type, content, skill, slug, source_path }): Promise<string> {
@@ -28,6 +29,11 @@ export function createAgentContextWriteTool(projectDir: string): ToolDefinition 
         if (!slug) return "오류: slug 필수"
         upsertExternalFile(projectDir, slug, source_path ?? "", content)
         return `external/${slug} 저장 완료`
+      }
+      if (type === "template") {
+        if (!slug) return "오류: slug 필수"
+        upsertTemplate(projectDir, slug, content)
+        return `template/${slug} 저장 완료`
       }
       return `오류: 알 수 없는 type: ${type}`
     },

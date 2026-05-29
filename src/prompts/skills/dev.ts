@@ -11,12 +11,12 @@ export const DEV_SKILL = `### dev
 
 **Phase 0: Scope Check**
 요청을 분류한다:
-- Small (단일 파일, 5줄 이하) → Expert 없이 Phase 1 → 직접 실행
+- Small (단일 파일, 5줄 이하) → Phase 1 → 오케스트레이터 직접 실행 (Phase 2·3 스킵)
 - Medium (2-5파일) → Phase 1 → Phase 2 (Expert 1개)
 - Large (설계 포함, 6파일+) → Phase 1 → Phase 2 (Expert 복수 병렬)
 
 분류 불명확 시 유저에게 묻는다: "변경 범위가 어느 정도인가요?"
-출력: \`✅ Phase 0 완료\` 후 Phase 1 진입.
+출력: \`✅ Phase 0 완료 — 규모: [Small·Medium·Large]\` 후 Phase 1 진입.
 
 ---
 

@@ -39,10 +39,19 @@ export function getDb(): Database {
       year_month TEXT NOT NULL,
       created_at INTEGER NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS templates (
+      project_dir TEXT NOT NULL,
+      slug TEXT NOT NULL,
+      content TEXT NOT NULL,
+      updated_at INTEGER NOT NULL,
+      PRIMARY KEY (project_dir, slug)
+    );
     CREATE INDEX IF NOT EXISTS idx_history_project_month
       ON history(project_dir, year_month);
     CREATE INDEX IF NOT EXISTS idx_external_project
       ON external_files(project_dir);
+    CREATE INDEX IF NOT EXISTS idx_templates_project
+      ON templates(project_dir);
   `)
   return _db
 }
@@ -94,6 +103,24 @@ export function getExternalFiles(
       "SELECT slug, source_path, content FROM external_files WHERE project_dir = ? ORDER BY created_at",
     )
     .all(projectDir) as Array<{ slug: string; source_path: string; content: string }>
+}
+
+export function upsertTemplate(projectDir: string, slug: string, content: string): void {
+  getDb()
+    .prepare(
+      "INSERT OR REPLACE INTO templates (project_dir, slug, content, updated_at) VALUES (?, ?, ?, ?)",
+    )
+    .run(projectDir, slug, content, Date.now())
+}
+
+export function getTemplates(
+  projectDir: string,
+): Array<{ slug: string; content: string }> {
+  return getDb()
+    .prepare(
+      "SELECT slug, content FROM templates WHERE project_dir = ? ORDER BY updated_at",
+    )
+    .all(projectDir) as Array<{ slug: string; content: string }>
 }
 
 export function getCurrentMonthHistory(
