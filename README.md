@@ -68,10 +68,19 @@ OpenCode 재시작 후 즉시 사용 가능합니다.
 {
   "plugins": [
     "agent-core-plugin",
-    "oh-my-openagent"
+    "oh-my-openagent",
+    "@ex-machina/opencode-anthropic-auth",
+    "cursor-oauth-opencode"
   ]
 }
 ```
+
+| 플러그인 | 설명 |
+|---------|------|
+| `agent-core-plugin` | 이 플러그인 |
+| `oh-my-openagent` | OMO 워크플로우 에이전트 |
+| `@ex-machina/opencode-anthropic-auth` | Anthropic 계정 인증 |
+| `cursor-oauth-opencode` | Cursor OAuth 연동 |
 
 > 하나의 작업에서는 에이전트를 자주 전환하지 않는 것이 안정적입니다.
 
